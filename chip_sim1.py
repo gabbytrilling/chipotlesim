@@ -1,49 +1,4 @@
-""" Simulates a person ordering food at Chipotle.
-"""
-class Chipotle:
-    """Simulates a person ordering food at Chipotle
-    Attributes:
-        name(str): the person ordering
-    """
-    
-    def __init__(self, name):
-        """Initializes the customer object and set the name attribute to the name  sets on type of food offered like 
-        
-        Args:
-            name (str): the customer name
-        
-        Side effects:
-            Initializes self.name
-        """
-    
-    def customer_pref(self, bowl, burrito):
-        """customer determines what kind of burrito he wants narrowing his options for toppings
-        dictionary of option and prices
-        """
-    def calories_count(self):
-        """ determines the number of calories per order"
-        use dictionary
-        put in end of class key value pair, last
-        """
-    def customer_budget(self):
-        """customers can select id they have a budget and if the customer
-         surpasses the budget they will start the order again or can remove items, before price
-        """
-    def dietary(self, paleo, ):
-        """determines if the ingredients selected fit the restrictions
-        comparir order within the dietary restrictions, set
-        """
-    def extra_topings(self,guac, queso,protein,chips):
-        """takes into account additional toppings such as duplicates to the list
-        combine with next method"""
-    def sides_option( self, chips, drink):
-        """ asks for sides
-        """
-    def price_cal(self):
-        """determines the price of the customer order
-        """
-        
-        
+      
 """ Simulates a person ordering food at Chipotle.
 """
 
@@ -53,7 +8,8 @@ class Burrito:
         name(str): the person ordering
     """
     def __init__(self, name):
-        """Initializes the customer object and set the name attribute to the name  sets on type of food offered like 
+        """Initializes the customer object and set the name attribute to the
+         name  sets on type of food offered like 
         
         Args:
             name (str): the customer name
@@ -62,23 +18,60 @@ class Burrito:
             Initializes self.name
         """
     
-    def dietary(self, paleo, ):
+    def dietary(self, type ):
         """determines if the ingredients selected fit the restrictions
         comparir order within the dietary restrictions, set
-        """
-    def extra(self,guac, queso,protein,chips,drink):
-        """takes into account additional toppings such as duplicates to the list
-        combine with next method"""
         
-     def customer_budget(self):
-        """customers can select id they have a budget and if the customer
-         surpasses the budget they will start the order again or can remove items, before price
-        """ 
+        Args:
+            type (str): type of base ingredients
+        
+        return:
+            retuns a dictionary of list: price, calorie count,
+            and contents of the bowl.
+        """
+    def extra(self, type, amount):
+        """takes into account additional toppings such as duplicates to the list
+        combine with next method
+        
+        Args:
+            Type (str): type of topping and amount being add 
+        
+        Retruns dictionary: 
+            returns a dictonary of prices and calories for items
+        """
+
+    def calories_count(self):
+        """ determines the number of calories per order"
+        use dictionary
+        put in end of class key value pair, last
+        
+        Return (int): return the calories count
+        """    
+    
     def price_cal(self):
         """determines the price of the customer order
+        
+        Return (int): return the price of the order 
         """
       
 class Bowl(Burrito):
+    """class for a burrito bowl order if selected.
+    """
+    def __init__(self):
+        """initializes a burrito bowl.
+        """
+        super().__init__()
+        
+    def tor_pref(self,option):
+        """find whether the customer is getting a tortilla
+        
+        Args
+        
+        Return Bool: whether true of false  
+        """
+    def tortilla(self,)
+        
+    
     
 if __name__ = "__main__":
   
