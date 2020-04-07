@@ -3,13 +3,15 @@
 """
 
 class Burrito:
-    """Simulates a person ordering food at Chipotle
+    """ Simulates a person ordering food at Chipotle
+    
     Attributes:
         name(str): the person ordering
     """
+    
     def __init__(self, name):
-        """Initializes the customer object and set the name attribute to the
-         name  sets on type of food offered like 
+        """ Initializes the customer object and set the name attribute to the
+         name  
         
         Args:
             name (str): the customer name
@@ -17,10 +19,17 @@ class Burrito:
         Side effects:
             Initializes self.name
         """
-    
+        
+    def customer_pref(self, type):
+        """ Identifys wheather the customer wants a bowl or burrito.
+        
+        Args:
+            type (str): determines whether the customer wants a bowl or burrito
+             
+        """
     def dietary(self, type ):
-        """determines if the ingredients selected fit the restrictions
-        comparir order within the dietary restrictions, set
+        """ Determines if the ingredients selected fit the restrictions
+        comparir order within the dietary restrictions
         
         Args:
             type (str): type of base ingredients
@@ -29,10 +38,11 @@ class Burrito:
             retuns a dictionary of list: price, calorie count,
             and contents of the bowl.
         """
-    def extra(self, type, amount):
-        """takes into account additional toppings such as duplicates to the list
-        combine with next method
         
+    def extra(self, type, amount):
+        """ Takes into account additional toppings such as duplicates 
+        to the list
+    
         Args:
             Type (str): type of topping and amount being add 
         
@@ -41,17 +51,18 @@ class Burrito:
         """
 
     def calories_count(self):
-        """ determines the number of calories per order"
-        use dictionary
-        put in end of class key value pair, last
+        """ Determines the number of calories per order
         
-        Return (int): return the calories count
+        
+        Return (int): 
+            return the calories count
         """    
     
     def price_cal(self):
-        """determines the price of the customer order
+        """ Determines the price of the customer order
         
-        Return (int): return the price of the order 
+        Return (int): 
+            return the price of the order 
         """
       
 class Bowl(Burrito):
@@ -63,15 +74,17 @@ class Bowl(Burrito):
         super().__init__()
         
     def tor_pref(self,option):
-        """find whether the customer is getting a tortilla
+        """ Find whether the customer is getting a tortilla
         
-        Args
+        Args (str): 
+            customer indicates yes or no
         
-        Return Bool: whether true of false  
+        Return (Bool): 
+            whether true of false  
         """
-    def tortilla(self,)
         
-    
-    
+    #def tortilla(self,)
+           
 if __name__ = "__main__":
+
   
