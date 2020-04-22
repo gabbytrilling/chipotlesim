@@ -22,28 +22,12 @@ class Burrito:
         self.name = name
         self.ingredients = []
         
-    def customer_pref(self, type1):
-        """ Identifys wheather the customer wants a bowl or burrito.
-        
-        Args:
-            type (str): determines whether the customer wants a bowl or burrito
-             
-        """
-        if type1 != "bowl" or type1 != "burrito":
-            raise TypeError("This is not a valid option")
-        else:
-            return type1
-
     def dietary(self, type1 = None ):
-        """ Determines if the ingredients selected fit the restrictions
-        comparir order within the dietary restrictions
+        """ Finds out what dietary bowl the customer wants and inputs it
+        into their bowl.
         
         Args:
             type (str): type of base ingredients
-        
-        return:
-            retuns a dictionary of list: price, calorie count,
-            and contents of the bowl.
         """
         
         keto_salad_bowl = ["supergreens lettuce blend", "steak",
@@ -62,7 +46,6 @@ class Burrito:
             self.ingredients += vegetarian_bowl
         else:
             self.assemble()
-        return self.ingredients
     
     def assemble (self):
         base = input("Brown Rice, White Rice, or Lettuce? ")
@@ -77,12 +60,9 @@ class Burrito:
                        "green chili salsa")
         salsa = salsa.strip().split(",")
         self.ingredients += salsa
-        toppings = input("cheese, guacamole, lettuce, sour cream, corn chips")
+        toppings = input("cheese, guacamole, lettuce, sour cream")
         toppings = toppings.strip().split(",")
-        self.ingredients += toppings
-        
-        
-            
+        self.ingredients += toppings  
         
     def extra(self, type, amount):
         """ Takes into account additional toppings such as duplicates 
@@ -101,8 +81,25 @@ class Burrito:
         
         Return (int): 
             return the calories count
-        """    
-    
+        """ 
+        calorie_list = {'chicken': 180,'steak': 150, 'barbacoa': 170,
+                        'carnitas': 210,'sofritas': 150,'veggie': 20,
+                         'white rice': 210, 'brown rice': 210,
+                         'black beans': 130,'pinto': 130,'guacamole': 230,
+                         'fresh tomato': 25,'corn salsa': 80,
+                         'green chili salsa': 15,
+                         'red chili salsa': 30,'sour cream': 110,
+                         'fajita': 20,'cheese': 110,'lettuce': 5,
+                         'queso blanco': 120}
+        
+        calorie_total = 0
+        for i in self.ingredients:
+            if i in calorie_list:
+                calorie_total += calorie_list[i]
+        
+        return calorie_total
+                
+        
     def price_cal(self):
         """ Determines the price of the customer order
         
@@ -129,7 +126,19 @@ class Bowl(Burrito):
         """
         
     #def tortilla(self,)
-           
+
+def customer_pref(type1):
+    """ Identifies whether the customer wants a bowl or burrito.
+        
+    Args:
+        type (str): determines whether the customer wants a bowl or burrito
+             
+    """
+    if type1 != "bowl" or type1 != "burrito":
+        raise TypeError("This is not a valid option")
+    else:
+        return type1
+
 if __name__ = "__main__":
 
   
