@@ -21,6 +21,8 @@ class Burrito:
         """
         self.name = name
         self.ingredients = []
+        self.order = {}
+        self.order["Name"] = self.name
         
     def dietary(self, type1 = None ):
         """ Finds out what dietary bowl the customer wants and inputs it
@@ -30,14 +32,14 @@ class Burrito:
             type (str): type of base ingredients
         """
         
-        keto_salad_bowl = ["supergreens lettuce blend", "steak",
-                            "tomatillo-red chili salsa", "cheese", "guacamole"]
+        keto_salad_bowl = ["lettuce", "steak",
+                            "red chili salsa", "cheese", "guacamole"]
         vegan_bowl = ["brown rice", "sofritas", "black beans", 
-                      "fresh tomatillo salsa", "roasted chili- corn salsa", 
-                      "shredded romaine lettuce"]
-        vegetarian_bowl = ["super greens lettuce blend", "brown rice", 
-                           "black beans", "fajita veggies", 
-                           "fresh tomato salsa and guacamole"]
+                      "tomatillo salsa", "corn salsa", 
+                      "lettuce"]
+        vegetarian_bowl = ["lettuce", "brown rice", 
+                           "black beans", "fajitas", 
+                           "tomato salsa","guacamole"]
         if type1 == "keto":
             self.ingredients += keto_salad_bowl
         elif type1 == "vegan":
@@ -46,6 +48,9 @@ class Burrito:
             self.ingredients += vegetarian_bowl
         else:
             self.assemble()
+        
+        self.order['Price'] = self.price_cal
+        self.order['Calories'] = self.calories_count
     
     def assemble (self):
         base = input("Brown Rice, White Rice, or Lettuce? ")
@@ -64,17 +69,24 @@ class Burrito:
         toppings = toppings.strip().split(",")
         self.ingredients += toppings  
         
-    def extra(self, type, amount):
-        """ Takes into account additional toppings such as duplicates 
-        to the list
+    def extra(self, type1, amount):
+        """ updates self.order price based on extras ordered 
     
         Args:
-            Type (str): type of topping and amount being add 
-        
-        Retruns dictionary: 
-            returns a dictonary of prices and calories for items
+            Type (str): type of topping and amount being add
+            amount (int): the amount of extra toppings the customer wishes to
+            order 
         """
-
+        extra_price = {'chicken': 2.80, 'steak': 3.55, 'barbacoa': 3.55,
+                   'carnitas': 3.00, 'sofritas': 2.80}
+        price = self.price_cal()
+        extra_amt = extras[type1] * amount
+        price += extra_amt
+        
+        return price
+        
+        
+        
     def calories_count(self):
         """ Determines the number of calories per order
         
@@ -83,10 +95,10 @@ class Burrito:
             return the calories count
         """ 
         calorie_list = {'chicken': 180,'steak': 150, 'barbacoa': 170,
-                        'carnitas': 210,'sofritas': 150,'veggie': 20,
+                        'carnitas': 210,'sofritas': 150,'fajitas': 20,
                          'white rice': 210, 'brown rice': 210,
                          'black beans': 130,'pinto': 130,'guacamole': 230,
-                         'fresh tomato': 25,'corn salsa': 80,
+                         'tomato salsa': 25,'corn salsa': 80,
                          'green chili salsa': 15,
                          'red chili salsa': 30,'sour cream': 110,
                          'fajita': 20,'cheese': 110,'lettuce': 5,
@@ -109,6 +121,13 @@ class Burrito:
         prices = {"chicken" : 7.70, "steak" : 8.70 , "barbacoa" : 8.70, 
                 "carnitas" : 8.20, "sofritas" : 7.70, "veggie" : 7.70, 
                 "guacamole" : 2.30, "queso blanco" : 1.30}
+        
+        price = 0
+        for i in self.ingredients:
+            if i in prices:
+                price += prices[i]
+        
+        return price
 
       
       
@@ -144,6 +163,6 @@ def customer_pref(type1):
     else:
         return type1
 
-if __name__ = "__main__":
+if __name__ == "__main__":
 
   
