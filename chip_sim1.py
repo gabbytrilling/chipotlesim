@@ -106,6 +106,11 @@ class Burrito:
         Return (int): 
             return the price of the order 
         """
+        prices = {"chicken" : 7.70, "steak" : 8.70 , "barbacoa" : 8.70, 
+                "carnitas" : 8.20, "sofritas" : 7.70, "veggie" : 7.70, 
+                "guacamole" : 2.30, "queso blanco" : 1.30}
+
+      
       
 class Bowl(Burrito):
     """class for a burrito bowl order if selected.
