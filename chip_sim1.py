@@ -22,7 +22,7 @@ class Burrito:
         self.name = name
         self.ingredients = []
         self.order = {}
-        self.order["Name"] = self.name
+        self.order[self.name] = None
         
     def dietary(self, type1 = None ):
         """ Finds out what dietary bowl the customer wants and inputs it
@@ -68,6 +68,7 @@ class Burrito:
         toppings = input("cheese, guacamole, lettuce, sour cream")
         toppings = toppings.strip().split(",")
         self.ingredients += toppings  
+        self.order[self.name] = self.ingredients
         
     def extra(self, type1, amount):
         """ updates self.order price based on extras ordered 
@@ -76,14 +77,16 @@ class Burrito:
             Type (str): type of topping and amount being add
             amount (int): the amount of extra toppings the customer wishes to
             order 
+        Returns:
+            extra price
         """
         extra_price = {'chicken': 2.80, 'steak': 3.55, 'barbacoa': 3.55,
                    'carnitas': 3.00, 'sofritas': 2.80}
         price = self.price_cal()
-        extra_amt = extras[type1] * amount
+        extra_amt = extra_price[type1] * amount
         price += extra_amt
         
-        return price
+        return extra_amt
         
         
         
@@ -112,7 +115,7 @@ class Burrito:
         return calorie_total
                 
         
-    def price_cal(self):
+    def price_cal(self, type1, amount):
         """ Determines the price of the customer order
         
         Return (int): 
@@ -123,9 +126,12 @@ class Burrito:
                 "guacamole" : 2.30, "queso blanco" : 1.30}
         
         price = 0
+        ext = extra()
         for i in self.ingredients:
             if i in prices:
                 price += prices[i]
+                
+        if self.extra(type1, amount) > 0:
         
         return price
 
@@ -134,10 +140,8 @@ class Burrito:
 class Bowl(Burrito):
     """class for a burrito bowl order if selected.
     """
-    def __init__(self):
-        """initializes a burrito bowl.
-        """
-        super().__init__()
+    
+    
         
     def tor_pref(self,option):
         """ Find whether the customer is getting a tortilla
@@ -162,6 +166,8 @@ def customer_pref(type1):
         raise TypeError("This is not a valid option")
     else:
         return type1
+    
+def main():
 
 if __name__ == "__main__":
 
