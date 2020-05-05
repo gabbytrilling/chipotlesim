@@ -49,18 +49,17 @@ class Burrito:
         else:
             self.assemble()
         
-        self.order['Price'] = self.price_cal
-        self.order['Calories'] = self.calories_count
+        self.order['Price'] = self.price_cal()
+        self.order['Calories'] = self.calories_count()
     
     def assemble (self):
-        base = input("Brown Rice, White Rice, or Lettuce? ")
+        base = input("brown rice, white rice, or Lettuce? ")
         self.ingredients.append(base)
         beans = input("pinto or black")
         self.ingredients.append(beans)
         protein = input("chicken, steak, carnitas, sofritas (vegan),"
                         "veggies (vegan), barbacoa")
-        protein = protein.strip().split(",")
-        self.ingredients += protien
+        self.ingredients += protein
         salsa = input("red chili salsa, tomatillo salsa, corn salsa,"
                        "green chili salsa")
         salsa = salsa.strip().split(",")
@@ -69,26 +68,6 @@ class Burrito:
         toppings = toppings.strip().split(",")
         self.ingredients += toppings  
         self.order[self.name] = self.ingredients
-        
-    def extra(self, type1, amount):
-        """ updates self.order price based on extras ordered 
-    
-        Args:
-            Type (str): type of topping and amount being add
-            amount (int): the amount of extra toppings the customer wishes to
-            order 
-        Returns:
-            extra price
-        """
-        extra_price = {'chicken': 2.80, 'steak': 3.55, 'barbacoa': 3.55,
-                   'carnitas': 3.00, 'sofritas': 2.80}
-        price = self.price_cal()
-        extra_amt = extra_price[type1] * amount
-        price += extra_amt
-        
-        return extra_amt
-        
-        
         
     def calories_count(self):
         """ Determines the number of calories per order
@@ -114,46 +93,55 @@ class Burrito:
         
         return calorie_total
                 
-        
-    def price_cal(self, type1, amount):
+    def price_cal(self, base, amount):
         """ Determines the price of the customer order
         
         Return (int): 
             return the price of the order 
         """
         prices = {"chicken" : 7.70, "steak" : 8.70 , "barbacoa" : 8.70, 
-                "carnitas" : 8.20, "sofritas" : 7.70, "veggie" : 7.70, 
-                "guacamole" : 2.30, "queso blanco" : 1.30}
+                "carnitas" : 8.20, "sofritas" : 7.70, "veggie" : 7.70}
         
         price = 0
-        ext = extra()
         for i in self.ingredients:
             if i in prices:
                 price += prices[i]
-                
-        if self.extra(type1, amount) > 0:
         
         return price
-
-      
+    
+    def extra(self, extras):
+        """ updates self.order price based on extras ordered 
+    
+        Args:
+            extras (lst of str): toppings that are being added extra
+        
+        Returns:
+            total price calculation including the value of the extra toppings
+        """
+        extra_price = {'chicken': 2.80, 'steak': 3.55, 'barbacoa': 3.55,
+                   'carnitas': 3.00, 'sofritas': 2.80, "guacamole" : 2.30, 
+                   "queso blanco" : 1.30}
+        price = self.price_cal()
+        
+        for i in extras:
+            if i in extra_price:
+                price += extra_price[i]
+        
+        return price
       
 class Bowl(Burrito):
     """class for a burrito bowl order if selected.
     """
-    
-    
-        
-    def tor_pref(self,option):
-        """ Find whether the customer is getting a tortilla
+    def tortilla(self, option):
+        """ Find whether the customer is getting a tortilla on the side
         
         Args (str): 
             customer indicates yes or no
         
-        Return (Bool): 
+        Return (Boolean): 
             whether true of false  
         """
-        
-    #def tortilla(self,)
+        return option == 'yes'
 
 def customer_pref(type1):
     """ Identifies whether the customer wants a bowl or burrito.
@@ -168,7 +156,23 @@ def customer_pref(type1):
         return type1
     
 def main():
-
+    name = input("welcome to chipotle! what is your name? ")
+    order = input("burrito or bowl? ")
+    pref = customer_pref(order)
+    if pref == 'bowl':
+        chip_order = Bowl(name)
+    if pref == 'burrito':
+        chip_order = Burrito(name)
+    diet = input("do you have any dietary restrictions?"
+                 " (keto, vegan, vegetarian, None): ")    
+    chip_order.dietary(diet)
+    extras = input("did you want any extra toppings? "
+                   "(chicken, steak, barbacoa, carnitas, sofritas, guacamole, "
+                   "queso blanco): ")
+    extras = extras.strip().split(",")
+    price = chip_order.extra(extras)
+    cals = chip_order.calories_count()
+    print(f'your total will be {price} and {cals} calories total')
+    
 if __name__ == "__main__":
-
-  
+    main()
