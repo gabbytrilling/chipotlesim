@@ -21,8 +21,6 @@ class Burrito:
         """
         self.name = name
         self.ingredients = []
-        self.order = {}
-        self.order[self.name] = None
         
     def dietary(self, type1 = None ):
         """ Finds out what dietary bowl the customer wants and inputs it
@@ -47,31 +45,28 @@ class Burrito:
         elif type1 == "vegetarian":
             self.ingredients += vegetarian_bowl
         else:
-            self.assemble()
-        
-        self.order['Price'] = self.price_cal()
-        self.order['Calories'] = self.calories_count()
+            self.ingredients += self.assemble()
     
     def assemble (self):
-        base = input("brown rice, white rice, or Lettuce? ")
-        self.ingredients.append(base)
-        beans = input("pinto or black")
-        self.ingredients.append(beans)
+        ingredients = []
+        base = input("brown rice, white rice, or lettuce? ")
+        ingredients.append(base)
+        beans = input("pinto or black beans? ")
+        ingredients.append(beans)
         protein = input("chicken, steak, carnitas, sofritas (vegan),"
-                        "veggies (vegan), barbacoa")
-        self.ingredients += protein
+                        "veggies (vegan), barbacoa? ")
+        ingredients += protein
         salsa = input("red chili salsa, tomatillo salsa, corn salsa,"
-                       "green chili salsa")
+                       " green chili salsa? ")
         salsa = salsa.strip().split(",")
-        self.ingredients += salsa
-        toppings = input("cheese, guacamole, lettuce, sour cream")
+        ingredients += salsa
+        toppings = input("cheese, lettuce, sour cream? ")
         toppings = toppings.strip().split(",")
-        self.ingredients += toppings  
-        self.order[self.name] = self.ingredients
+        ingredients += toppings  
+        return ingredients
         
     def calories_count(self):
         """ Determines the number of calories per order
-        
         
         Return (int): 
             return the calories count
@@ -93,7 +88,7 @@ class Burrito:
         
         return calorie_total
                 
-    def price_cal(self, base, amount):
+    def price_cal(self):
         """ Determines the price of the customer order
         
         Return (int): 
@@ -109,7 +104,7 @@ class Burrito:
         
         return price
     
-    def extra(self, extras):
+    def extra(self, extras = None):
         """ updates self.order price based on extras ordered 
     
         Args:
@@ -123,11 +118,14 @@ class Burrito:
                    "queso blanco" : 1.30}
         price = self.price_cal()
         
-        for i in extras:
-            if i in extra_price:
-                price += extra_price[i]
-        
-        return price
+        if extras != None:
+            for i in extras:
+                self.ingredients.append(i)
+                if i in extra_price:
+                    price += extra_price[i]
+            return price
+        else:
+            return None
       
 class Bowl(Burrito):
     """class for a burrito bowl order if selected.
@@ -147,13 +145,14 @@ def customer_pref(type1):
     """ Identifies whether the customer wants a bowl or burrito.
         
     Args:
-        type (str): determines whether the customer wants a bowl or burrito
-             
+        type (str): determines whether the customer wants a bowl or burrito 
+                
     """
-    if type1 != "bowl" or type1 != "burrito":
-        raise TypeError("This is not a valid option")
-    else:
-        return type1
+    try:
+        if type1 == "bowl" or type1 == "burrito":
+            return type1
+    except TypeError:
+        pass
     
 def main():
     name = input("welcome to chipotle! what is your name? ")
@@ -161,6 +160,8 @@ def main():
     pref = customer_pref(order)
     if pref == 'bowl':
         chip_order = Bowl(name)
+        tort = input("did you want a tortilla on the side? (yes or no): ")
+        tor = chip_order.tortilla(tort)
     if pref == 'burrito':
         chip_order = Burrito(name)
     diet = input("do you have any dietary restrictions?"
@@ -172,7 +173,12 @@ def main():
     extras = extras.strip().split(",")
     price = chip_order.extra(extras)
     cals = chip_order.calories_count()
-    print(f'your total will be {price} and {cals} calories total')
+    if chip_order == Bowl:
+        print(f'{name}, the total for your bowl will be ${price} and {cals}' 
+              f' calories total was there a tortilla on the side? {tor}')
+    else: 
+        print(f'{name}, the total for your burrito will be ${price} and {cals}' 
+              f' calories total')
     
 if __name__ == "__main__":
     main()
