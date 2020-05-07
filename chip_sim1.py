@@ -55,7 +55,7 @@ class Burrito:
         ingredients.append(beans)
         protein = input("chicken, steak, carnitas, sofritas (vegan),"
                         "veggies (vegan), barbacoa? ")
-        ingredients += protein
+        ingredients.append(protein)
         salsa = input("red chili salsa, tomatillo salsa, corn salsa,"
                        " green chili salsa? ")
         salsa = salsa.strip().split(",")
@@ -137,7 +137,7 @@ class Bowl(Burrito):
             customer indicates yes or no
         
         Return (Boolean): 
-            whether true of false  
+            whether true or false  
         """
         return option == 'yes'
 
@@ -145,8 +145,7 @@ def customer_pref(type1):
     """ Identifies whether the customer wants a bowl or burrito.
         
     Args:
-        type (str): determines whether the customer wants a bowl or burrito 
-                
+        type (str): determines whether the customer wants a bowl or burrito           
     """
     try:
         if type1 == "bowl" or type1 == "burrito":
@@ -173,9 +172,11 @@ def main():
     extras = extras.strip().split(",")
     price = chip_order.extra(extras)
     cals = chip_order.calories_count()
-    if chip_order == Bowl:
+    result = isinstance(chip_order, Bowl)
+    print(chip_order.ingredients)
+    if result:
         print(f'{name}, the total for your bowl will be ${price} and {cals}' 
-              f' calories total was there a tortilla on the side? {tor}')
+              f' calories total, was there a tortilla on the side? {tor}')
     else: 
         print(f'{name}, the total for your burrito will be ${price} and {cals}' 
               f' calories total')
