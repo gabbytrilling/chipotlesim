@@ -35,7 +35,7 @@ class Burrito:
         vegan_bowl = ["brown rice", "sofritas", "black beans", 
                       "tomatillo salsa", "corn salsa", 
                       "lettuce"]
-        vegetarian_bowl = ["lettuce", "brown rice", 
+        vegetarian_bowl = ["veggie","lettuce", "brown rice", 
                            "black beans", "fajitas", 
                            "tomato salsa","guacamole"]
         if type1 == "keto":
