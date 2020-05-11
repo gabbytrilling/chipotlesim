@@ -173,7 +173,6 @@ def main():
     price = chip_order.extra(extras)
     cals = chip_order.calories_count()
     result = isinstance(chip_order, Bowl)
-    print(chip_order.ingredients)
     if result:
         print(f'{name}, the total for your bowl will be ${price} and {cals}' 
               f' calories total, was there a tortilla on the side? {tor}')
