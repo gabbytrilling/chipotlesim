@@ -122,7 +122,6 @@ class Burrito:
                    'carnitas': 3.00, 'sofritas': 2.80, "guacamole" : 2.30, 
                    "queso blanco" : 1.30}
         price = self.price_cal()
-        
         if extras != None:
             for i in extras:
                 self.ingredients.append(i)
@@ -130,7 +129,7 @@ class Burrito:
                     price += extra_price[i]
             return price
         else:
-            return None
+            return price
       
 class Bowl(Burrito):
     """class for a burrito bowl order if selected.
