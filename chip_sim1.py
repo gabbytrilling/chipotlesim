@@ -48,6 +48,11 @@ class Burrito:
             self.ingredients += self.assemble()
     
     def assemble (self):
+        """ Assembles burrito through input statements
+        
+        returns:
+            ingredients (list): a list of ingredients.
+        """
         ingredients = []
         base = input("brown rice, white rice, or lettuce? ")
         ingredients.append(base)
@@ -154,6 +159,10 @@ def customer_pref(type1):
         pass
     
 def main():
+    """ Arranges the code. Asks user for their name, order, tortilla, buttiro,
+    dietary restrictions, chips, calroies, and extra toppings. Displays to 
+    terminal.          
+    """
     name = input("welcome to chipotle! what is your name? ")
     order = input("burrito or bowl? ")
     pref = customer_pref(order)
